@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>শাহেনা রনির জন্য</title>
+<title>আমার সমস্ত কিছুর শুরু আর শেষ তুমি রনি...</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Galada&family=Atma:wght@400;600;700&display=swap" rel="stylesheet">
@@ -744,7 +744,7 @@
     <div class="loading-ring"></div>
     <div class="loading-heart">❤</div>
   </div>
-  <p class="loading-text">চিঠি তৈরি হচ্ছে...</p>
+  <p class="loading-text">Letter being prepared...</p>
 </div>
 
 <div class="bg-layer"></div>
@@ -759,16 +759,16 @@
   </div>
   <div class="seal-icon">❤</div>
   <h1 class="screen-title" id="title-1"></h1>
-  <p class="screen-sub">তোমার জন্য একটি বিশেষ চিঠি অপেক্ষা করছে</p>
-  <button class="btn-open" id="btn-open">OPEN</button>
+  <p class="screen-sub">A special letter is waiting for you...</p>
+  <button class="btn-open" id="btn-open">OPEN LETTER</button>
 </section>
 
 <!-- SCREEN 2: sender notice -->
 <section class="screen" id="screen-2">
   <div class="env-icon">✉️</div>
   <h1 class="screen-title" id="title-2"></h1>
-  <p class="screen-sub">একটি নতুন চিঠি এসেছে তোমার নামে</p>
-  <button class="btn-reveal" id="btn-reveal">চিঠি খুলে দেখুন</button>
+  <p class="screen-sub">Sobuj sent you a letter...</p>
+  <button class="btn-reveal" id="btn-reveal">Open the letter and see.</button>
 </section>
 
 <div class="wax-seal-overlay" id="waxSealOverlay">
@@ -781,8 +781,8 @@
 <section class="screen" id="screen-congrats">
   <div class="rays"></div>
   <div class="congrats-heart">❤</div>
-  <h1 class="congrats-title">অভিনন্দন!</h1>
-  <p class="congrats-sub">তোমার চিঠি খুলে যাচ্ছে...</p>
+  <h1 class="congrats-title">Congratulations!</h1>
+  <p class="congrats-sub">Your letter is opening....</p>
 </section>
 
 <!-- SCREEN 4: full letter -->
@@ -816,7 +816,7 @@
         <span class="typewriter-text" id="typewriter"></span><span class="cursor-nib" id="cursor">🖋️</span>
       </div>
 
-      <p class="post-mark-line">ডাকযোগে প্রেরিত — চিঠি দিবস, ১লা সেপ্টেম্বর ২০২৬</p>
+      <p class="post-mark-line">চিঠি দিবস, ১লা সেপ্টেম্বর ২০২৬</p>
     </div>
   </div>
 </div>
@@ -841,7 +841,7 @@
   window.addEventListener('load', () => {
     // Initialize title after loading
     setTimeout(() => {
-      typeChars(document.getElementById('title-1'), "চিঠি ডে'র আন্তরিক শুভেচ্ছা", 0.15);
+      typeChars(document.getElementById('title-1'), "Warm wishes on Letter Day", 0.15);
     }, 800);
     
     showLoadingScreen();
@@ -964,7 +964,7 @@
   const waxSealOverlay = document.getElementById('waxSealOverlay');
 
   document.getElementById('btn-open').addEventListener('click', function(){
-    typeChars(document.getElementById('title-2'), 'সবুজ আপনাকে চিঠি পাঠিয়েছেন', 0.15);
+    typeChars(document.getElementById('title-2'), 'Sobuj sent you a letter.', 0.15);
     screen1.classList.remove('active');
     screen2.classList.add('active');
     setTheme('2');
