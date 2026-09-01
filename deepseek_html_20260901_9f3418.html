@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>শাহেনা রনির জন্য</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Galada&family=Atma:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Tiro Bangla', serif;
+    color:#f3e6d3;
+    position:relative;
+    overflow-x:hidden;
+    background:#1b0509;
+  }
+
+  /* ================= persistent background layer, theme-switched ================= */
+  .bg-layer{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background:radial-gradient(ellipse 90% 70% at 50% 15%, #4a1220 0%, #1b0509 70%);
+  }
+  body[data-theme="2"] .bg-layer{ background:radial-gradient(ellipse 90% 70% at 50% 15%, #35207a 0%, #120a28 70%); }
+  body[data-theme="3"] .bg-layer{ background:radial-gradient(ellipse 100% 80% at 50% 25%, #8a5c12 0%, #2a1705 75%); }
+  body[data-theme="4"] .bg-layer{ background:radial-gradient(ellipse 90% 70% at 50% 8%, #4a1220 0%, #1b0509 60%); }
+
+  .vignette{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:radial-gradient(ellipse 90% 75% at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  #particles{
+    position:fixed;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    overflow:hidden;
+  }
+
+  /* particle: hearts (theme 1) */
+  .p-heart{
+    position:absolute;
+    bottom:-40px;
+    opacity:0;
+    color:#cda86b;
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg) scale(0.7); opacity:0; }
+    10%{ opacity:0.5; }
+    85%{ opacity:0.3; }
+    100%{ transform:translateY(-108vh) translateX(var(--drift,20px)) rotate(180deg) scale(1); opacity:0; }
+  }
+
+  /* particle: sparkle stars + envelopes (theme 2) */
+  .p-spark{
+    position:absolute;
+    opacity:0;
+    color:#c9b6ff;
+    animation:twinkle-drift ease-in-out infinite;
+  }
+  @keyframes twinkle-drift{
+    0%{ opacity:0; transform:translateY(0) scale(0.6) rotate(0deg); }
+    20%{ opacity:0.85; }
+    50%{ transform:translateY(-14px) scale(1) rotate(20deg); }
+    80%{ opacity:0.5; }
+    100%{ opacity:0; transform:translateY(-28px) scale(0.6) rotate(-10deg); }
+  }
+
+  /* particle: confetti (theme 3) */
+  .p-confetti{
+    position:absolute;
+    top:-24px;
+    width:8px;
+    height:14px;
+    opacity:0.95;
+    animation:confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(112vh) rotate(540deg); opacity:0.9; }
+  }
+
+  /* particle: petals (theme 4) */
+  .p-petal{
+    position:absolute;
+    bottom:-40px;
+    opacity:0;
+    color:#cda86b;
+    animation:rise linear infinite;
+  }
+
+  /* particle: paper airplanes (ambient, every theme) */
+  .p-plane{
+    position:absolute;
+    opacity:0;
+    font-size:16px;
+    color:#f3e6d3;
+    animation:fly-across linear infinite;
+  }
+  @keyframes fly-across{
+    0%{ transform:translate(-10vw, 90vh) rotate(-18deg); opacity:0; }
+    12%{ opacity:0.55; }
+    88%{ opacity:0.35; }
+    100%{ transform:translate(112vw, -12vh) rotate(-18deg); opacity:0; }
+  }
+
+  @keyframes fade-in{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ================= Loading Screen ================= */
+  .loading-screen{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:radial-gradient(ellipse 90% 70% at 50% 15%, #4a1220 0%, #1b0509 70%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  .loading-screen.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+  .loading-seal{
+    position:relative;
+    width:100px;
+    height:100px;
+    margin-bottom:24px;
+  }
+
+  .loading-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-top-color:#cda86b;
+    animation:loading-spin 1.2s linear infinite;
+  }
+
+  .loading-ring::after{
+    content:'';
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    border:2px solid transparent;
+    border-bottom-color:#ecd39d;
+    animation:loading-spin 0.8s linear infinite reverse;
+  }
+
+  .loading-heart{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    color:#ecd39d;
+    animation:heart-beat 1s ease-in-out infinite;
+  }
+
+  @keyframes loading-spin{
+    to{ transform:rotate(360deg); }
+  }
+
+  @keyframes heart-beat{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.15); }
+  }
+
+  .loading-text{
+    font-family:'Baloo Da 2', sans-serif;
+    color:#cda86b;
+    font-size:0.95rem;
+    letter-spacing:0.06em;
+    animation:fade-in 1s ease infinite alternate;
+  }
+
+  /* ================= generic screen layout ================= */
+  .screen{
+    position:relative;
+    z-index:3;
+    min-height:100svh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px 22px;
+  }
+  .screen.active{ display:flex; }
+
+  .char{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(16px) rotate(-4deg);
+    animation:char-in 0.55s cubic-bezier(.22,1.4,.36,1) forwards;
+  }
+  @keyframes char-in{
+    to{ opacity:1; transform:translateY(0) rotate(0deg); }
+  }
+
+  .screen-sub{
+    font-size:clamp(0.95rem, 3.8vw, 1.05rem);
+    margin-bottom:44px;
+    opacity:0;
+    animation:fade-in 0.8s ease 0.9s forwards;
+  }
+
+  /* ---------------- SCREEN 1 : welcome (wine/gold) ---------------- */
+  .postbox-scene{
+    position:relative;
+    height:44px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+  .postbox-icon{
+    font-size:32px;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  }
+  .flying-letter{
+    position:absolute;
+    font-size:17px;
+    left:50%;
+    top:0;
+    animation:letter-post 2.6s ease-in-out infinite;
+  }
+  @keyframes letter-post{
+    0%{ transform:translate(-52px,-26px) rotate(-14deg) scale(0.8); opacity:0; }
+    28%{ opacity:1; }
+    52%{ transform:translate(-10px,-2px) rotate(2deg) scale(1); opacity:1; }
+    68%{ transform:translate(-10px,6px) rotate(0deg) scale(0.85); opacity:0.5; }
+    100%{ transform:translate(-10px,6px) rotate(0deg) scale(0.6); opacity:0; }
+  }
+
+  #screen-1 .seal-icon{
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    border:1.5px solid #cda86b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    color:#ecd39d;
+    margin-bottom:28px;
+    position:relative;
+    animation:seal-spin-in 0.9s cubic-bezier(.22,1.4,.36,1) forwards;
+  }
+  #screen-1 .seal-icon::before{
+    content:'';
+    position:absolute;
+    inset:-10px;
+    border-radius:50%;
+    border:1px solid rgba(205,168,107,0.4);
+    animation:ring-pulse 2.4s ease-out infinite;
+  }
+  @keyframes seal-spin-in{
+    from{ opacity:0; transform:scale(0.3) rotate(-160deg); }
+    to{ opacity:1; transform:scale(1) rotate(0deg); }
+  }
+  @keyframes ring-pulse{
+    0%{ transform:scale(0.85); opacity:0.7; }
+    100%{ transform:scale(1.6); opacity:0; }
+  }
+
+  #screen-1 .screen-title{
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:700;
+    font-size:clamp(1.5rem, 6.4vw, 2.1rem);
+    color:#ecd39d;
+    line-height:1.5;
+    max-width:14ch;
+    margin-bottom:14px;
+  }
+
+  .btn-open{
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    letter-spacing:0.08em;
+    color:#1b0509;
+    background:linear-gradient(100deg, #cda86b 0%, #ecd39d 25%, #cda86b 50%, #ecd39d 75%, #cda86b 100%);
+    background-size:260% 100%;
+    border:none;
+    padding:16px 50px;
+    border-radius:2px;
+    cursor:pointer;
+    box-shadow:0 0 0 rgba(236,211,157,0.5);
+    animation:shimmer 3.2s linear infinite, glow-pulse 2.4s ease-in-out infinite, fade-in 0.8s ease 1.2s backwards;
+    transition:transform 0.2s ease;
+  }
+  .btn-open:hover{ transform:translateY(-2px) scale(1.03); }
+  .btn-open:active{ transform:translateY(0) scale(0.98); }
+  @keyframes shimmer{
+    0%{ background-position:0% 0; }
+    100%{ background-position:260% 0; }
+  }
+  @keyframes glow-pulse{
+    0%,100%{ box-shadow:0 8px 20px rgba(0,0,0,0.4), 0 0 0 rgba(236,211,157,0.35); }
+    50%{ box-shadow:0 8px 20px rgba(0,0,0,0.4), 0 0 22px rgba(236,211,157,0.55); }
+  }
+
+  /* ---------------- SCREEN 2 : sender notice (indigo/plum) ---------------- */
+  #screen-2 .env-icon{
+    font-size:56px;
+    margin-bottom:26px;
+    display:inline-block;
+    animation:env-bounce-in 0.9s cubic-bezier(.22,1.4,.36,1) forwards;
+  }
+  @keyframes env-bounce-in{
+    0%{ opacity:0; transform:translateY(-60px) scale(0.5) rotate(-20deg); }
+    60%{ opacity:1; transform:translateY(8px) scale(1.08) rotate(4deg); }
+    100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+  }
+
+  #screen-2 .screen-title{
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:700;
+    font-size:clamp(1.4rem, 6vw, 1.9rem);
+    color:#e8ddff;
+    line-height:1.5;
+    max-width:16ch;
+    margin-bottom:14px;
+    text-shadow:0 0 18px rgba(180,140,255,0.35);
+  }
+
+  .btn-reveal{
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    letter-spacing:0.04em;
+    color:#f3e6d3;
+    background:linear-gradient(180deg, #b6335a, #7d1f42);
+    border:1px solid rgba(232,221,255,0.35);
+    padding:16px 44px;
+    border-radius:2px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    animation:wobble 2.6s ease-in-out infinite, fade-in 0.8s ease 1.2s backwards;
+    transition:transform 0.2s ease;
+  }
+  .btn-reveal:hover{ transform:scale(1.04); }
+  @keyframes wobble{
+    0%,100%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-1.5deg); }
+    75%{ transform:rotate(1.5deg); }
+  }
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.5);
+    transform:scale(0);
+    animation:ripple-out 0.6s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes ripple-out{
+    to{ transform:scale(3); opacity:0; }
+  }
+
+  /* wax seal crack overlay */
+  .wax-seal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.15s ease;
+  }
+  .wax-seal-overlay.show{ opacity:1; }
+  .seal-piece{
+    position:absolute;
+    width:76px;
+    height:76px;
+    background:radial-gradient(circle at 35% 30%, #9c2c4e, #6a1834);
+    border-radius:50%;
+    box-shadow:0 6px 20px rgba(0,0,0,0.5);
+  }
+  .seal-piece.left{ clip-path:polygon(0 0, 50% 0, 50% 100%, 0 100%); }
+  .seal-piece.right{ clip-path:polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
+  .seal-center{
+    position:absolute;
+    color:#f3e6d3;
+    font-size:24px;
+  }
+  .wax-seal-overlay.crack .seal-piece.left{ animation:crack-left 0.6s ease forwards; }
+  .wax-seal-overlay.crack .seal-piece.right{ animation:crack-right 0.6s ease forwards; }
+  .wax-seal-overlay.crack .seal-center{ animation:crack-fade 0.6s ease forwards; }
+  @keyframes crack-left{ to{ transform:translate(-46px,-14px) rotate(-30deg); opacity:0; } }
+  @keyframes crack-right{ to{ transform:translate(46px,14px) rotate(30deg); opacity:0; } }
+  @keyframes crack-fade{ to{ opacity:0; transform:scale(1.4); } }
+
+  /* ---------------- SCREEN 3 : congratulations (amber burst) ---------------- */
+  #screen-congrats{ overflow:hidden; }
+  .rays{
+    position:absolute;
+    width:140vw;
+    height:140vw;
+    background:repeating-conic-gradient(from 0deg, rgba(255,225,150,0.16) 0deg 6deg, transparent 6deg 18deg);
+    animation:spin 12s linear infinite;
+    z-index:0;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .congrats-heart{
+    position:relative;
+    z-index:1;
+    font-size:3.2rem;
+    color:#ffe6a8;
+    margin-bottom:16px;
+    animation:pop 0.7s cubic-bezier(.22,1.4,.36,1) forwards;
+    text-shadow:0 0 30px rgba(255,225,150,0.6);
+  }
+  @keyframes pop{
+    0%{ transform:scale(0) rotate(-30deg); opacity:0; }
+    70%{ transform:scale(1.2) rotate(8deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+  .congrats-title{
+    position:relative; z-index:1;
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.7rem, 7vw, 2.4rem);
+    color:#ffe6a8;
+    margin-bottom:12px;
+    opacity:0;
+    animation:fade-in 0.7s ease 0.25s forwards;
+  }
+  .congrats-sub{
+    position:relative; z-index:1;
+    color:#e9c98a;
+    font-size:clamp(0.95rem, 3.8vw, 1.05rem);
+    opacity:0;
+    animation:fade-in 0.7s ease 0.55s forwards;
+  }
+
+  /* ---------------- SCREEN 4 : the letter (torn paper + typewriter) ---------------- */
+  .stage{
+    position:relative;
+    z-index:3;
+    max-width:640px;
+    margin:0 auto;
+    padding:34px 18px 56px;
+    display:none;
+    perspective:1200px;
+  }
+  .stage.active{ display:block; }
+
+  .frame{
+    position:relative;
+    border:1px solid rgba(205,168,107,0.55);
+    border-radius:2px;
+    padding:10px;
+    margin-top:16px;
+  }
+  /* torn / deckle edge strips */
+  .frame::before, .frame::after{
+    content:'';
+    position:absolute;
+    left:-2px; right:-2px;
+    height:11px;
+    background-image:
+      linear-gradient(135deg, #1b0509 50%, transparent 50%),
+      linear-gradient(225deg, #1b0509 50%, transparent 50%);
+    background-size:14px 14px;
+    background-repeat:repeat-x;
+  }
+  .frame::before{ top:-6px; }
+  .frame::after{ bottom:-6px; transform:rotate(180deg); }
+
+  .frame-inner{
+    position:relative;
+    border:1px solid rgba(205,168,107,0.55);
+    padding:clamp(34px,7vw,58px) clamp(20px,6vw,44px) clamp(40px,7vw,56px);
+    opacity:0;
+    transform-origin:top center;
+    animation:unfold 1.1s cubic-bezier(.22,.9,.35,1) 0.1s forwards;
+    min-height:60vh;
+    overflow:hidden;
+  }
+  @keyframes unfold{
+    0%{ opacity:0; transform:rotateX(-95deg); }
+    55%{ opacity:1; }
+    100%{ opacity:1; transform:rotateX(0deg); }
+  }
+
+  .paper-grain{
+    position:absolute; inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    mix-blend-mode:overlay;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .fold-line{
+    position:absolute;
+    left:6%;
+    right:6%;
+    height:1px;
+    background:rgba(243,230,211,0.08);
+    pointer-events:none;
+  }
+  .ink-blot{
+    position:absolute;
+    border-radius:60% 40% 55% 45% / 50% 60% 40% 50%;
+    filter:blur(1.5px);
+    pointer-events:none;
+  }
+  .ink-blot.i1{ width:60px; height:48px; top:6%; left:4%; opacity:0.35; background:radial-gradient(circle at 40% 40%, rgba(60,10,20,0.5), transparent 72%); }
+  .ink-blot.i2{ width:44px; height:40px; bottom:8%; right:5%; opacity:0.3; transform:rotate(25deg); background:radial-gradient(circle at 40% 40%, rgba(60,10,20,0.45), transparent 72%); }
+
+  .ribbon-badge{
+    position:absolute;
+    top:-15px;
+    left:22px;
+    background:linear-gradient(180deg, #b6335a, #7d1f42);
+    color:#f3e6d3;
+    padding:6px 16px 7px;
+    font-family:'Baloo Da 2', sans-serif;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    box-shadow:0 4px 10px rgba(0,0,0,0.35);
+    z-index:4;
+  }
+  .ribbon-badge::before{
+    content:'';
+    position:absolute;
+    left:-8px; top:0;
+    border-top:12px solid #7d1f42;
+    border-left:8px solid transparent;
+  }
+  .ribbon-badge::after{
+    content:'';
+    position:absolute;
+    right:-8px; top:0;
+    border-top:12px solid #7d1f42;
+    border-right:8px solid transparent;
+  }
+
+  .stamp{
+    position:absolute;
+    top:-20px;
+    right:18px;
+    width:56px;
+    height:68px;
+    background:linear-gradient(160deg, #efe3c8, #d9c49a);
+    padding:5px;
+    transform:rotate(6deg);
+    box-shadow:0 6px 14px rgba(0,0,0,0.35);
+    z-index:4;
+  }
+  .stamp::before{
+    content:'';
+    position:absolute; inset:3px;
+    border:2px dashed rgba(123,90,40,0.55);
+  }
+  .stamp-icon{
+    position:relative;
+    font-size:24px;
+    color:#7d1f42;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+  }
+
+  .postmark{
+    position:absolute;
+    top:2px;
+    right:52px;
+    width:48px;
+    height:48px;
+    opacity:0.85;
+    transform:rotate(-10deg);
+    z-index:4;
+  }
+
+  .pull-quote{
+    font-family:'Baloo Da 2', sans-serif;
+    font-weight:600;
+    color:#ecd39d;
+    font-size:clamp(1.1rem, 4.4vw, 1.35rem);
+    text-align:center;
+    line-height:1.6;
+    margin-bottom:16px;
+    opacity:0;
+    animation:fade-in 0.9s ease 1s forwards;
+    position:relative;
+    z-index:2;
+  }
+
+  .trim-row{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin:0 0 clamp(26px,6vw,40px);
+    opacity:0;
+    font-size:0.85rem;
+    color:#cda86b;
+    position:relative;
+    z-index:2;
+    animation:fade-in 0.9s ease 1.2s forwards;
+  }
+
+  .typewriter-wrap{
+    min-height:40vh;
+    position:relative;
+    z-index:2;
+  }
+  .typewriter-text{
+    font-family:'Galada', 'Atma', 'Tiro Bangla', cursive;
+    font-size:clamp(1.08rem, 4vw, 1.28rem);
+    line-height:2.05;
+    letter-spacing:0.01em;
+    color:#f3e6d3;
+    text-align:center;
+    white-space:pre-wrap;
+  }
+  .cursor-nib{
+    display:inline-block;
+    font-size:0.9em;
+    margin-left:2px;
+    animation:nib-bob 0.6s ease-in-out infinite alternate;
+  }
+  @keyframes nib-bob{
+    from{ transform:translateY(0) rotate(-8deg); }
+    to{ transform:translateY(-3px) rotate(6deg); }
+  }
+
+  .post-mark-line{
+    position:relative;
+    z-index:2;
+    margin-top:30px;
+    text-align:center;
+    color:rgba(217,196,168,0.65);
+    font-size:0.82rem;
+    font-family:'Baloo Da 2', sans-serif;
+    letter-spacing:0.02em;
+  }
+
+  footer{
+    position:relative;
+    z-index:3;
+    text-align:center;
+    padding-bottom:8px;
+    color:rgba(217,196,168,0.4);
+    font-family:'Baloo Da 2', sans-serif;
+    font-size:0.78rem;
+    display:none;
+  }
+
+  /* Mobile Responsive Adjustments */
+  @media (max-width: 640px){
+    .postmark{
+      top:0;
+      right:38px;
+      width:38px;
+      height:38px;
+    }
+    
+    .stamp{
+      top:-16px;
+      right:8px;
+      width:48px;
+      height:58px;
+      transform:rotate(4deg);
+    }
+    
+    .stamp-icon{
+      font-size:18px;
+    }
+    
+    .ribbon-badge{
+      font-size:0.65rem;
+      padding:4px 12px 5px;
+      top:-18px;
+      left:12px;
+    }
+    
+    .ribbon-badge::before{
+      border-top-width:10px;
+      border-left-width:6px;
+      left:-6px;
+    }
+    
+    .ribbon-badge::after{
+      border-top-width:10px;
+      border-right-width:6px;
+      right:-6px;
+    }
+  }
+
+  @media (max-width: 400px){
+    .stamp{
+      display:none;
+    }
+    
+    .postmark{
+      right:50%;
+      transform:translateX(50%) rotate(-10deg);
+      top:-10px;
+    }
+    
+    .frame-inner{
+      padding-top:70px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body data-theme="1">
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-seal">
+    <div class="loading-ring"></div>
+    <div class="loading-heart">❤</div>
+  </div>
+  <p class="loading-text">চিঠি তৈরি হচ্ছে...</p>
+</div>
+
+<div class="bg-layer"></div>
+<div class="vignette"></div>
+<div id="particles"></div>
+
+<!-- SCREEN 1: welcome -->
+<section class="screen" id="screen-1">
+  <div class="postbox-scene">
+    <span class="postbox-icon">📮</span>
+    <span class="flying-letter">💌</span>
+  </div>
+  <div class="seal-icon">❤</div>
+  <h1 class="screen-title" id="title-1"></h1>
+  <p class="screen-sub">তোমার জন্য একটি বিশেষ চিঠি অপেক্ষা করছে</p>
+  <button class="btn-open" id="btn-open">OPEN</button>
+</section>
+
+<!-- SCREEN 2: sender notice -->
+<section class="screen" id="screen-2">
+  <div class="env-icon">✉️</div>
+  <h1 class="screen-title" id="title-2"></h1>
+  <p class="screen-sub">একটি নতুন চিঠি এসেছে তোমার নামে</p>
+  <button class="btn-reveal" id="btn-reveal">চিঠি খুলে দেখুন</button>
+</section>
+
+<div class="wax-seal-overlay" id="waxSealOverlay">
+  <div class="seal-piece left"></div>
+  <div class="seal-piece right"></div>
+  <div class="seal-center">❤</div>
+</div>
+
+<!-- SCREEN 3: congratulations -->
+<section class="screen" id="screen-congrats">
+  <div class="rays"></div>
+  <div class="congrats-heart">❤</div>
+  <h1 class="congrats-title">অভিনন্দন!</h1>
+  <p class="congrats-sub">তোমার চিঠি খুলে যাচ্ছে...</p>
+</section>
+
+<!-- SCREEN 4: full letter -->
+<div class="stage" id="screen-letter">
+  <div class="frame">
+    <div class="ribbon-badge">চিঠি দিবস ২০২৬</div>
+    <div class="stamp">
+      <div class="stamp-icon">🪶</div>
+    </div>
+    <svg class="postmark" viewBox="0 0 100 100">
+      <path id="postmarkCircle" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none" stroke="#ecd39d" stroke-width="1.4" opacity="0.85"/>
+      <text font-size="8.3" fill="#ecd39d" opacity="0.9">
+        <textPath href="#postmarkCircle" startOffset="1%">চিঠি দিবস · ১লা সেপ্টেম্বর ২০২৬ · ❤ ·</textPath>
+      </text>
+      <line x1="22" y1="50" x2="78" y2="50" stroke="#ecd39d" stroke-width="1" opacity="0.5"/>
+      <line x1="26" y1="43" x2="74" y2="43" stroke="#ecd39d" stroke-width="0.8" opacity="0.4"/>
+      <line x1="26" y1="57" x2="74" y2="57" stroke="#ecd39d" stroke-width="0.8" opacity="0.4"/>
+    </svg>
+
+    <div class="frame-inner">
+      <div class="paper-grain"></div>
+      <div class="fold-line" style="top:33%"></div>
+      <div class="fold-line" style="top:66%"></div>
+      <div class="ink-blot i1"></div>
+      <div class="ink-blot i2"></div>
+
+      <p class="pull-quote">🪶 "তোমাকে ছাড়া জীবনের প্রতিটা দিন অসম্পূর্ণ"</p>
+      <div class="trim-row"><span>🪶</span><span>❤</span><span>🪶</span><span>❤</span><span>🪶</span></div>
+
+      <div class="typewriter-wrap">
+        <span class="typewriter-text" id="typewriter"></span><span class="cursor-nib" id="cursor">🖋️</span>
+      </div>
+
+      <p class="post-mark-line">ডাকযোগে প্রেরিত — চিঠি দিবস, ১লা সেপ্টেম্বর ২০২৬</p>
+    </div>
+  </div>
+</div>
+
+<footer id="site-footer">চিঠি দিবস, ২০২৬</footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Loading Screen ---------- */
+  function showLoadingScreen(){
+    const loading = document.getElementById('loadingScreen');
+    
+    setTimeout(() => {
+      loading.classList.add('hide');
+      document.getElementById('screen-1').classList.add('active');
+      // Start particles after loading
+      setTheme('1');
+    }, 2200);
+  }
+
+  window.addEventListener('load', () => {
+    // Initialize title after loading
+    setTimeout(() => {
+      typeChars(document.getElementById('title-1'), "চিঠি ডে'র আন্তরিক শুভেচ্ছা", 0.15);
+    }, 800);
+    
+    showLoadingScreen();
+  });
+
+  /* ---------- staggered title letters ---------- */
+  function typeChars(el, text, baseDelay){
+    el.innerHTML = '';
+    [...text].forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      span.style.animationDelay = (baseDelay + i * 0.035) + 's';
+      el.appendChild(span);
+    });
+  }
+
+  /* ---------- particle system ---------- */
+  const particleLayer = document.getElementById('particles');
+
+  function clearParticles(){ particleLayer.innerHTML = ''; }
+
+  function spawnHearts(){
+    const count = window.innerWidth < 600 ? 9 : 15;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'p-heart';
+      el.textContent = '❤';
+      el.style.fontSize = (10 + Math.random()*15) + 'px';
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.setProperty('--drift', (Math.random()*70-35) + 'px');
+      const dur = 10 + Math.random()*11;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = (Math.random()*dur) + 's';
+      particleLayer.appendChild(el);
+    }
+  }
+
+  function spawnSparkles(){
+    const symbols = ['✦','✧','✉'];
+    const count = window.innerWidth < 600 ? 12 : 20;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'p-spark';
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      el.style.fontSize = (8 + Math.random()*12) + 'px';
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.top = Math.random()*100 + 'vh';
+      const dur = 2.5 + Math.random()*2.5;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = (Math.random()*dur) + 's';
+      particleLayer.appendChild(el);
+    }
+  }
+
+  function spawnConfetti(){
+    const colors = ['#ffe6a8','#ff9d6c','#cda86b','#f3e6d3','#e2665a'];
+    const count = window.innerWidth < 600 ? 34 : 55;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'p-confetti';
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.width = (5 + Math.random()*5) + 'px';
+      el.style.height = (10 + Math.random()*8) + 'px';
+      const dur = 2.4 + Math.random()*1.8;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = (Math.random()*0.6) + 's';
+      particleLayer.appendChild(el);
+    }
+  }
+
+  function spawnPetals(){
+    const count = window.innerWidth < 600 ? 8 : 14;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'p-petal';
+      el.textContent = Math.random() > 0.5 ? '❤' : '♥';
+      el.style.fontSize = (9 + Math.random()*14) + 'px';
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.setProperty('--drift', (Math.random()*70-35) + 'px');
+      const dur = 11 + Math.random()*12;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = (Math.random()*dur) + 's';
+      particleLayer.appendChild(el);
+    }
+  }
+
+  function spawnPlanes(){
+    const count = window.innerWidth < 600 ? 2 : 3;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'p-plane';
+      el.textContent = '✈';
+      el.style.left = (Math.random()*20) + 'vw';
+      const dur = 16 + Math.random()*10;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = (Math.random()*dur) + 's';
+      particleLayer.appendChild(el);
+    }
+  }
+
+  function setTheme(n){
+    document.body.setAttribute('data-theme', n);
+    clearParticles();
+    if(reduceMotion) return;
+    if(n === '1') spawnHearts();
+    else if(n === '2') spawnSparkles();
+    else if(n === '3') spawnConfetti();
+    else if(n === '4') spawnPetals();
+    spawnPlanes();
+  }
+
+  /* ---------- screen elements ---------- */
+  const screen1 = document.getElementById('screen-1');
+  const screen2 = document.getElementById('screen-2');
+  const screenCongrats = document.getElementById('screen-congrats');
+  const screenLetter = document.getElementById('screen-letter');
+  const footer = document.getElementById('site-footer');
+  const waxSealOverlay = document.getElementById('waxSealOverlay');
+
+  document.getElementById('btn-open').addEventListener('click', function(){
+    typeChars(document.getElementById('title-2'), 'সবুজ আপনাকে চিঠি পাঠিয়েছেন', 0.15);
+    screen1.classList.remove('active');
+    screen2.classList.add('active');
+    setTheme('2');
+  });
+
+  document.getElementById('btn-reveal').addEventListener('click', function(e){
+    // button ripple
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 650);
+
+    // wax seal crack
+    waxSealOverlay.classList.add('show');
+    requestAnimationFrame(() => waxSealOverlay.classList.add('crack'));
+
+    setTimeout(function(){
+      waxSealOverlay.classList.remove('show', 'crack');
+      screen2.classList.remove('active');
+      screenCongrats.classList.add('active');
+      setTheme('3');
+
+      setTimeout(function(){
+        screenCongrats.classList.remove('active');
+        screenLetter.classList.add('active');
+        footer.style.display = 'block';
+        setTheme('4');
+        window.scrollTo(0, 0);
+        startTypewriter();
+      }, 2000);
+    }, 700);
+  });
+
+  /* ---------- typewriter: whole letter typed over 10 seconds ---------- */
+  const letterText =
+`প্রিয় শাহেনা রনি,
+
+আজ চিঠি দিবস। তাই ভাবলাম, তোমাকে কিছু কথা চিঠির মাধ্যমে বলি — যে কথাগুলো হয়তো মুখে সবসময় বলা হয়ে ওঠে না।
+
+আমাদের ভালোবাসার চারটা বছর কেটে গেছে। চার বছর ধরে তোমাকে ভালোবেসেছি, তোমাকে অনুভব করেছি, তোমাকে আমার জীবনের একটা অংশ করে নিয়েছি। অথচ আমাদের প্রথম দেখাটা হয়েছিল প্রায় চার বছর পর, সেটাও ছিল একেবারেই অনাকাঙ্ক্ষিত।
+
+কিন্তু জানো, সেদিন তোমাকে প্রথমবার সামনে থেকে দেখার পর আমার মনে হলো — আমি তোমাকে আগে যতটা ভালোবাসতাম, সেদিন তার চেয়েও অনেক বেশি ভালোবেসে ফেলেছি।
+
+সেদিন তোমাকে দেখে সত্যিই মুগ্ধ হয়ে গিয়েছিলাম। চার বছর ধরে যার কণ্ঠ শুনেছি, যার সঙ্গে কথা বলেছি, সেই মানুষটাকে নিজের চোখের সামনে দেখে মনে হয়েছিল — আমার ভালোবাসার মানুষটা বাস্তবে আমার কল্পনার থেকেও অনেক বেশি সুন্দর।
+
+রনি, আমি জানি না আমাদের ভবিষ্যৎ ঠিক কেমন হবে। কিন্তু একটা বিষয় আমি নিশ্চিতভাবে জানি — আমি সেই ভবিষ্যৎটা তোমাকে নিয়েই দেখতে চাই।
+
+আর মাত্র দুই মাস পর আমরা আমাদের সম্পর্কের কথা পরিবারকে জানাবো, তারপর বিয়ের প্রস্তুতি নেবো। ভাবতেই কেমন একটা ভালো লাগা কাজ করে — যে মানুষটাকে চার বছর ধরে ভালোবেসেছি, একদিন সেই মানুষটার সঙ্গেই নিজের একটা সংসার হবে।
+
+আমি চাই, আমাদের মাঝে যতই রাগ-অভিমান আসুক, দিনের শেষে আমরা যেন একে অপরের কাছেই ফিরে আসি।
+
+আমি তোমাকে কোনো নিখুঁত মানুষ হিসেবে চাই না। তোমার রাগ, অভিমান, জেদ, হাসি — সবকিছু মিলিয়েই তুমি আমার রনি। আর আমি সেই তোমাকেই ভালোবাসি।
+
+আজ শুধু একটা কথাই বলতে চাই — চার বছর আগে তোমাকে ভালোবেসেছিলাম, প্রথম দেখার দিন তোমার প্রেমে আরও গভীরভাবে পড়েছিলাম, আর এখন তোমাকে সারাজীবনের জন্য নিজের করে পাওয়ার স্বপ্ন দেখি।
+
+তুমি থেকো আমার পাশে। আজ, আগামীকাল, আর জীবনের শেষ দিন পর্যন্ত।
+
+ভালোবাসি তোমাকে, শাহেনা রনি ❤
+
+ইতি,
+তোমারই।`;
+
+  function startTypewriter(){
+    const el = document.getElementById('typewriter');
+    const cursor = document.getElementById('cursor');
+    const chars = [...letterText];
+    const total = chars.length;
+
+    if(reduceMotion){
+      el.textContent = letterText;
+      cursor.style.display = 'none';
+      return;
+    }
+
+    const duration = 10000; // 10 seconds for comfortable reading
+    let startTime = null;
+
+    function frame(ts){
+      if(startTime === null) startTime = ts;
+      const elapsed = ts - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const count = Math.floor(progress * total);
+      el.textContent = chars.slice(0, count).join('');
+      if(progress < 1){
+        requestAnimationFrame(frame);
+      } else {
+        cursor.style.display = 'none';
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+</script>
+
+</body>
+</html>
